@@ -3,6 +3,9 @@ import 'package:consumir_web_api/screens/chart_2.dart';
 import 'package:consumir_web_api/screens/chart_3.dart';
 import 'package:consumir_web_api/screens/chart_4.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
+
+import 'fetch_api.dart';
 
 void main() => runApp(MyApp());
 
@@ -89,6 +92,21 @@ class MyHomePage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => Charts_pt4());
 
                 Navigator.push(context, route1);
+              },
+            ),
+
+            ListTile(
+              title: Text(
+                'FETCH AND CRUD',
+                //style: TextStyle(fontSize: 25, fontStyle: FontStyle.italic),
+              ),
+              onTap: () {
+                final route1 =
+                    MaterialPageRoute(builder: (context) => FetchApi());
+
+                Navigator.push(context, route1);
+                // String test = '5';
+                // var number = int.parse(test);
               },
             ),
 

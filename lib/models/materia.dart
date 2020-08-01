@@ -6,16 +6,23 @@ class Materia {
   String profesor;
   String cuatrimestre;
   String horario;
+  int calificacion;
 
   Materia(
-      {this.id, this.nombre, this.profesor, this.cuatrimestre, this.horario});
+      {this.id,
+      this.nombre,
+      this.profesor,
+      this.cuatrimestre,
+      this.horario,
+      this.calificacion});
   factory Materia.fromJoson(Map<String, dynamic> map) {
     return Materia(
         id: map['Id'],
         nombre: map['Nombre'],
         profesor: map['Profesor'],
         cuatrimestre: map['Cuatrimestre'],
-        horario: map['Horario']);
+        horario: map['Horario'],
+        calificacion: map['Calificacion']);
   }
 
   Map<String, dynamic> toJson() {
@@ -24,13 +31,14 @@ class Materia {
       "Nombre": nombre,
       "Profesor": profesor,
       "Cuatrimestre": cuatrimestre,
-      "Horario": horario
+      "Horario": horario,
+      "Calificacion": calificacion
     };
   }
 
   @override
   String toString() {
-    return 'Profile {Id: $id, Nombre: $nombre, Profesor:$profesor, Cuatrimestre:$cuatrimestre, Horario:$horario}';
+    return 'Profile {Id: $id, Nombre: $nombre, Profesor:$profesor, Cuatrimestre:$cuatrimestre, Horario:$horario,Calificacion:$calificacion}';
   }
 }
 

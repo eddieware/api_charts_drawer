@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../main.dart';
-
 class Widgets_pt3 extends StatelessWidget {
   const Widgets_pt3({Key key}) : super(key: key);
 

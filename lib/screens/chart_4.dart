@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../main.dart';
-
 class Charts_pt4 extends StatelessWidget {
   const Charts_pt4({Key key}) : super(key: key);
 

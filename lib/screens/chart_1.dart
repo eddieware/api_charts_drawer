@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import '../api/apiservice.dart';
 
-class VerticalBarLabelChart extends StatelessWidget {
+class VerticalBarLabelChart extends StatefulWidget {
   List<charts.Series> seriesList;
   final bool animate;
-
   VerticalBarLabelChart(this.seriesList, {this.animate});
 
-  /// Creates a [BarChart] with sample data and no transition.
   factory VerticalBarLabelChart.withSampleData() {
     return new VerticalBarLabelChart(
       _createSampleData(),
@@ -16,13 +15,40 @@ class VerticalBarLabelChart extends StatelessWidget {
     );
   }
 
-  // [BarLabelDecorator] will automatically position the label
-  // inside the bar if the label will fit. If the label will not fit,
-  // it will draw outside of the bar.
-  // Labels can always display inside or outside using [LabelPosition].
-  //
-  // Text style for inside / outside can be controlled independently by setting
-  // [insideLabelStyleSpec] and [outsideLabelStyleSpec].
+  @override
+  _VerticalBarLabelChartState createState() => _VerticalBarLabelChartState();
+
+  /// Create one series with sample hard coded data.
+  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
+    final data = [
+      new OrdinalSales('Fernando', 55),
+      new OrdinalSales('Jose', 95),
+      new OrdinalSales('Edgar', 50),
+    ];
+
+    return [
+      new charts.Series<OrdinalSales, String>(
+          id: 'Sales',
+          domainFn: (OrdinalSales sales, _) => sales.year,
+          measureFn: (OrdinalSales sales, _) => sales.sales,
+          data: data,
+          // Set a label accessor to control the text of the bar label.
+          labelAccessorFn: (OrdinalSales sales, _) =>
+              '${sales.sales.toString()}pts')
+    ];
+  }
+}
+
+class _VerticalBarLabelChartState extends State<VerticalBarLabelChart> {
+  BuildContext context;
+  ApiService apiService;
+
+  @override
+  void initState() {
+    super.initState();
+    apiService = ApiService();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,8 +65,8 @@ class VerticalBarLabelChart extends StatelessWidget {
               height: 500,
               width: 400,
               child: charts.BarChart(
-                seriesList,
-                animate: animate,
+                widget.seriesList,
+                animate: widget.animate,
                 // Set a bar label decorator.
                 // Example configuring different styles for inside/outside:
                 //       barRendererDecorator: new charts.BarLabelDecorator(
@@ -64,26 +90,6 @@ class VerticalBarLabelChart extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// Create one series with sample hard coded data.
-  static List<charts.Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      new OrdinalSales('Fernando', 55),
-      new OrdinalSales('Jose', 95),
-      new OrdinalSales('Edgar', 50),
-    ];
-
-    return [
-      new charts.Series<OrdinalSales, String>(
-          id: 'Sales',
-          domainFn: (OrdinalSales sales, _) => sales.year,
-          measureFn: (OrdinalSales sales, _) => sales.sales,
-          data: data,
-          // Set a label accessor to control the text of the bar label.
-          labelAccessorFn: (OrdinalSales sales, _) =>
-              '${sales.sales.toString()}pts')
-    ];
   }
 }
 
